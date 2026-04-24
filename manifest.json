@@ -1,22 +1,46 @@
 {
+  "id": "com.eltikitaka.player.premium.v1",
   "name": "AceStream Premium Player",
   "short_name": "AcePlayer",
-  "start_url": "index.html",
+  "description": "Reproductor premium de AceStream con ticker de resultados deportivos de ESPN en vivo. Optimizado para Android y Android TV.",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#050505",
   "theme_color": "#3b82f6",
   "orientation": "landscape",
+  "categories": ["sports", "entertainment", "video"],
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/3670/3670163.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3670/3670163.png",
+      "sizes": "192x192",
       "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1920&q=80",
+      "sizes": "1920x1080",
+      "type": "image/jpg",
+      "form_factor": "wide",
+      "label": "Reproductor en acción"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1080&q=80",
+      "sizes": "1080x1920",
+      "type": "image/jpg",
+      "label": "Vista móvil"
     }
   ],
   "protocol_handlers": [
     {
       "protocol": "web+acestream",
-      "url": "index.html?id=%s"
+      "url": "./index.html?id=%s"
     }
   ]
 }
