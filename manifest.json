@@ -1,0 +1,37 @@
+{
+  "name": "AceStream Premium Player",
+  "short_name": "AcePlayer",
+  "description": "High-performance sports stream player with live ESPN scores ticker.",
+  "lang": "es",
+  "categories": ["sports", "entertainment", "video"],
+  "start_url": "index.html",
+  "id": "/index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#3b82f6",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3670/3670163.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+acestream",
+      "url": "index.html?id=%s"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://raw.githubusercontent.com/pwa-builder/PWABuilder/main/docs/images/placeholder_screenshot.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Vista principal del reproductor"
+    }
+  ]
+}
