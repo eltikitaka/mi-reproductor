@@ -1,11 +1,10 @@
 {
+  "id": "com.eltikitaka.player.v4",
   "name": "AceStream Premium Player",
   "short_name": "AcePlayer",
-  "description": "High-performance sports stream player with live ESPN scores ticker.",
-  "lang": "es",
-  "categories": ["sports", "entertainment", "video"],
-  "start_url": "index.html",
-  "id": "/index.html",
+  "description": "Reproductor premium de AceStream con ticker de resultados deportivos de ESPN.",
+  "lang": "es-ES",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#050505",
@@ -13,25 +12,29 @@
   "orientation": "landscape",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3670/3670163.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://placehold.co/1920x1080/050505/FFFFFF/png?text=AcePlayer",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
     }
   ],
   "protocol_handlers": [
     {
       "protocol": "web+acestream",
-      "url": "index.html?id=%s"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "https://raw.githubusercontent.com/pwa-builder/PWABuilder/main/docs/images/placeholder_screenshot.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Vista principal del reproductor"
+      "url": "./index.html?id=%s"
     }
   ]
 }
