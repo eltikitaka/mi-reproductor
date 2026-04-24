@@ -1,37 +1,46 @@
-// app.js - MODO DIAGNÓSTICO
-const video = document.getElementById('video-player');
-const loadingOverlay = document.getElementById('loading-overlay');
-const statusText = loadingOverlay.querySelector('p');
+const ACE_ENGINE_URL = "http://127.0.0.1:6878/ace/getstream";
 
 function loadStream(id) {
     if (!id) return;
-    const cleanId = id.trim().replace('acestream://', '').replace('//', '');
     
-    // Probamos el formato más básico (MPEG-TS directo)
-    const url = `http://127.0.0.1:6878/ace/getstream?id=${cleanId}`;
+    // Limpieza profunda del ID
+    const cleanId = id.trim().split(' ').join('').replace('acestream://', '').replace('//', '');
     
-    statusText.innerText = "Probando conexión con el motor...";
+    // Probamos con el formato universal de Android
+    // Usamos content_id en lugar de solo id
+    const url = `${ACE_ENGINE_URL}?content_id=${cleanId}&format=json`;
+    
     idPanel.classList.add('hidden');
     loadingOverlay.classList.remove('hidden');
+    
+    console.log("Solicitando stream a:", url);
 
-    // Intentamos "pingear" al motor antes de cargar el video
-    fetch(url, { mode: 'no-cors' })
-        .then(() => {
-            statusText.innerText = "Motor detectado. Cargando video...";
-            video.src = url;
-            video.play().catch(e => {
-                statusText.innerText = "Error: " + e.message + ". Intenta pulsar PLAY manualmente.";
-                console.error(e);
-            });
+    // Primero pedimos la URL real del stream al motor
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.response && data.response.stat_url) {
+                // El motor nos devuelve la URL real del video
+                console.log("URL de video recibida:", data.response.stat_url);
+                video.src = data.response.stat_url;
+                video.play();
+                loadingOverlay.classList.add('hidden');
+            } else if (data.response && data.response.playback_url) {
+                video.src = data.response.playback_url;
+                video.play();
+                loadingOverlay.classList.add('hidden');
+            } else {
+                // Si el JSON no tiene la URL, probamos el stream directo clásico
+                video.src = `${ACE_ENGINE_URL}?id=${cleanId}`;
+                video.play();
+                loadingOverlay.classList.add('hidden');
+            }
         })
         .catch(err => {
-            statusText.innerText = "ERROR: El motor no responde en 127.0.0.1:6878. ¿Está el Engine encendido?";
-            console.error("Error de red:", err);
+            console.error("Error pidiendo JSON, intentando stream directo...");
+            // Si falla el JSON, intentamos el modo directo que siempre funciona
+            video.src = `http://127.0.0.1:6878/ace/getstream?id=${cleanId}`;
+            video.play();
+            loadingOverlay.classList.add('hidden');
         });
 }
-
-// Al final del archivo, añade esto para ver logs en la pantalla del móvil
-const debugDiv = document.createElement('div');
-debugDiv.style = "position:fixed; top:0; left:0; background:rgba(0,0,0,0.7); color:lime; font-size:10px; z-index:9999; pointer-events:none; padding:5px;";
-document.body.appendChild(debugDiv);
-console.log = (msg) => { debugDiv.innerText += msg + "\n"; };
