@@ -1,46 +1,51 @@
-const ACE_ENGINE_URL = "http://127.0.0.1:6878/ace/getstream";
-
 function loadStream(id) {
     if (!id) return;
-    
-    // Limpieza profunda del ID
-    const cleanId = id.trim().split(' ').join('').replace('acestream://', '').replace('//', '');
-    
-    // Probamos con el formato universal de Android
-    // Usamos content_id en lugar de solo id
-    const url = `${ACE_ENGINE_URL}?content_id=${cleanId}&format=json`;
+    const cleanId = id.trim().replace('acestream://', '').replace('//', '');
     
     idPanel.classList.add('hidden');
     loadingOverlay.classList.remove('hidden');
-    
-    console.log("Solicitando stream a:", url);
+    statusText.innerText = "Despertando el motor Ace Stream...";
 
-    // Primero pedimos la URL real del stream al motor
-    fetch(url)
+    // PASO 1: Le decimos al motor que inicie la descarga del ID
+    // Usamos el comando 'stat' para comprobar si el motor lo reconoce
+    const startUrl = `http://127.0.0.1:6878/ace/getstream?id=${cleanId}&sid=eltikitaka&format=json`;
+
+    fetch(startUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.response && data.response.stat_url) {
-                // El motor nos devuelve la URL real del video
-                console.log("URL de video recibida:", data.response.stat_url);
-                video.src = data.response.stat_url;
-                video.play();
-                loadingOverlay.classList.add('hidden');
-            } else if (data.response && data.response.playback_url) {
-                video.src = data.response.playback_url;
-                video.play();
-                loadingOverlay.classList.add('hidden');
+            console.log("Respuesta del motor:", data);
+            
+            // Si el motor nos da una URL de reproducción, la usamos
+            let playUrl = "";
+            if (data.response && data.response.playback_url) {
+                playUrl = data.response.playback_url;
             } else {
-                // Si el JSON no tiene la URL, probamos el stream directo clásico
-                video.src = `${ACE_ENGINE_URL}?id=${cleanId}`;
+                // Si no, forzamos la URL de manifiesto que es la más fiable
+                playUrl = `http://127.0.0.1:6878/ace/manifest.m3u8?id=${cleanId}`;
+            }
+
+            statusText.innerText = "Canal listo. Iniciando reproducción...";
+            
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(playUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play();
+                    loadingOverlay.classList.add('hidden');
+                });
+            } else {
+                video.src = playUrl;
                 video.play();
                 loadingOverlay.classList.add('hidden');
             }
         })
         .catch(err => {
-            console.error("Error pidiendo JSON, intentando stream directo...");
-            // Si falla el JSON, intentamos el modo directo que siempre funciona
+            console.error("Error al despertar el motor:", err);
+            statusText.innerText = "Error: El motor no responde. ¿Está abierto Ace Stream Engine?";
+            
+            // Intento desesperado: Carga directa
             video.src = `http://127.0.0.1:6878/ace/getstream?id=${cleanId}`;
             video.play();
-            loadingOverlay.classList.add('hidden');
         });
 }
