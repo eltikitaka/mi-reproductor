@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AceStream Premium Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="main-container">
+        <!-- Video Element -->
+        <video id="video-player" playsinline></video>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="hidden">
+            <div class="spinner"></div>
+            <p>Iniciando stream...</p>
+        </div>
+
+        <!-- ID Input Panel -->
+        <div id="id-panel">
+            <h2 style="text-align: center; margin-bottom: 10px;">AceStream Player</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; margin-bottom: 20px;">Introduce el ID de contenido para comenzar</p>
+            <input type="text" id="acestream-id" placeholder="ID de AceStream (ej: 512...)" autocomplete="off">
+            <button id="load-btn">REPRODUCIR</button>
+        </div>
+
+        <!-- Custom Controls Overlay -->
+        <div id="controls-overlay">
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="controls-row">
+                <button class="control-btn" id="play-pause-btn">
+                    <svg viewBox="0 0 24 24" id="play-icon"><path d="M8 5v14l11-7z"/></svg>
+                    <svg viewBox="0 0 24 24" id="pause-icon" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+                
+                <div id="current-id-display" style="font-size: 0.8rem; color: var(--text-secondary); margin-left: auto;">
+                    ID: <span id="active-id-text">Ninguno</span>
+                </div>
+
+                <button class="control-btn" id="fullscreen-btn">
+                    <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ESPN Ticker -->
+    <div id="ticker-container">
+        <div class="ticker-label">ESPN LIVE</div>
+        <div class="ticker-wrapper">
+            <div class="ticker-content" id="ticker-content">
+                <!-- Items will be injected here -->
+                <div class="ticker-item">Cargando marcadores...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+    </script>
+</body>
+</html>
