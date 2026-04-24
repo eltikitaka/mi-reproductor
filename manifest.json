@@ -1,14 +1,18 @@
 {
-  "id": "com.eltikitaka.player.premium.v2",
+  "id": "com.eltikitaka.player.premium.v3",
   "name": "AceStream Premium Player",
   "short_name": "AcePlayer",
-  "description": "El mejor reproductor de AceStream con resultados de ESPN en tiempo real. Disfruta de tus eventos favoritos con una interfaz premium y ticker de noticias.",
+  "description": "Reproductor premium de AceStream con ticker de resultados deportivos de ESPN en vivo. Interfaz minimalista optimizada para Android.",
+  "lang": "es-ES",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "minimal-ui"],
   "background_color": "#050505",
   "theme_color": "#3b82f6",
   "orientation": "landscape",
   "categories": ["sports", "entertainment", "video"],
+  "iarc_rating_id": "e",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/3670/3670163.png",
@@ -17,31 +21,32 @@
       "purpose": "any maskable"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3670/3670163.png",
+      "src": "https://cdn-icons-png.flaticon.com/192/3670/3670163.png",
       "sizes": "192x192",
       "type": "image/png"
     }
   ],
   "screenshots": [
     {
-      "src": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1920&q=80",
+      "src": "https://placehold.co/1920x1080/050505/FFFFFF/png?text=AcePlayer+Wide",
       "sizes": "1920x1080",
-      "type": "image/jpeg",
+      "type": "image/png",
       "form_factor": "wide",
-      "label": "Reproductor principal"
+      "label": "Vista Horizontal"
     },
     {
-      "src": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1080&q=80",
+      "src": "https://placehold.co/1080x1920/050505/FFFFFF/png?text=AcePlayer+Narrow",
       "sizes": "1080x1920",
-      "type": "image/jpeg",
-      "label": "Vista en móvil"
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vista Vertical"
     }
   ],
   "shortcuts": [
     {
-      "name": "Abrir Reproductor",
+      "name": "Ver Deportes",
       "url": "./index.html",
-      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/3670/3670163.png", "sizes": "192x192" }]
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/192/3670/3670163.png", "sizes": "192x192" }]
     }
   ],
   "protocol_handlers": [
