@@ -71,7 +71,13 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js');
+                // Registro más robusto para GitHub Pages
+                const swPath = window.location.pathname.includes('index.html') 
+                    ? 'sw.js' 
+                    : './sw.js';
+                navigator.serviceWorker.register(swPath)
+                    .then(reg => console.log('SW registrado:', reg.scope))
+                    .catch(err => console.log('Error SW:', err));
             });
         }
     </script>

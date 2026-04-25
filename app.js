@@ -7,10 +7,13 @@ function loadStream(id) {
     statusText.innerText = "Despertando el motor Ace Stream...";
 
     // PASO 1: Le decimos al motor que inicie la descarga del ID
-    // Usamos el comando 'stat' para comprobar si el motor lo reconoce
     const startUrl = `http://127.0.0.1:6878/ace/getstream?id=${cleanId}&sid=eltikitaka&format=json`;
+    
+    // Añadimos un timeout para evitar bloqueos si el motor no responde
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-    fetch(startUrl)
+    fetch(startUrl, { signal: controller.signal })
         .then(response => response.json())
         .then(data => {
             console.log("Respuesta del motor:", data);
