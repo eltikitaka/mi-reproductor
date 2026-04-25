@@ -28,8 +28,9 @@
         <div id="id-panel">
             <h2 style="text-align: center; margin-bottom: 10px;">AceStream Player</h2>
             <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; margin-bottom: 20px;">Introduce el ID de contenido para comenzar</p>
-            <input type="text" id="acestream-id" placeholder="ID de AceStream (ej: 512...)" autocomplete="off">
-            <button id="load-btn">REPRODUCIR</button>
+            <label for="acestream-id" style="display: none;">ID de AceStream</label>
+            <input type="text" id="acestream-id" placeholder="ID de AceStream (ej: 512...)" autocomplete="off" aria-label="Introduce el ID de AceStream">
+            <button id="load-btn" aria-label="Reproducir contenido">REPRODUCIR</button>
         </div>
 
         <!-- Custom Controls Overlay -->
@@ -38,7 +39,7 @@
                 <div class="progress-bar-fill" id="progress-fill"></div>
             </div>
             <div class="controls-row">
-                <button class="control-btn" id="play-pause-btn">
+                <button class="control-btn" id="play-pause-btn" aria-label="Reproducir o pausar">
                     <svg viewBox="0 0 24 24" id="play-icon"><path d="M8 5v14l11-7z"/></svg>
                     <svg viewBox="0 0 24 24" id="pause-icon" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
@@ -47,7 +48,7 @@
                     ID: <span id="active-id-text">Ninguno</span>
                 </div>
 
-                <button class="control-btn" id="fullscreen-btn">
+                <button class="control-btn" id="fullscreen-btn" aria-label="Pantalla completa">
                     <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
                 </button>
             </div>
