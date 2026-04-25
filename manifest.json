@@ -1,20 +1,49 @@
 {
+  "id": "com.eltikitaka.player.v4",
   "name": "AceStream Premium Player",
   "short_name": "AcePlayer",
-  "description": "Reproductor de deportes en vivo.",
-  "lang": "es",
+  "description": "Reproductor premium de AceStream con ticker de resultados deportivos de ESPN.",
+  "lang": "es-ES",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#050505",
   "theme_color": "#3b82f6",
+  "orientation": "landscape",
   "icons": [
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "screenshots": []
+  "screenshots": [
+    {
+      "src": "https://placehold.co/1920x1080/050505/3b82f6/png?text=AceStream+Premium+Desktop",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Pantalla principal en escritorio"
+    },
+    {
+      "src": "https://placehold.co/1080x1920/050505/3b82f6/png?text=AceStream+Premium+Mobile",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Pantalla principal en móvil"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+acestream",
+      "url": "index.html?id=%s"
+    }
+  ]
 }

@@ -1,9 +1,11 @@
 const CACHE_NAME = 'aceplayer-v1';
 const ASSETS = [
+  './',
   'index.html',
   'style.css',
   'app.js',
-  'manifest.json'
+  'manifest.json',
+  'icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
